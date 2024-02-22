@@ -4,8 +4,8 @@ import kornia
 import open_clip
 from torch.utils.checkpoint import checkpoint
 from transformers import T5Tokenizer, T5EncoderModel, CLIPTokenizer, CLIPTextModel
-from lvdm.common import autocast
-from utils.utils import count_params
+from dynamicraft.lvdm.common import autocast
+from dynamicraft.utils.utils import count_params
 
 
 class AbstractEncoder(nn.Module):

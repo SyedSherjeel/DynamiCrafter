@@ -4,16 +4,16 @@ import torch
 import torch.nn as nn
 from einops import rearrange
 import torch.nn.functional as F
-from lvdm.models.utils_diffusion import timestep_embedding
-from lvdm.common import checkpoint
-from lvdm.basics import (
+from dynamicraft.lvdm.models.utils_diffusion import timestep_embedding
+from dynamicraft.lvdm.common import checkpoint
+from dynamicraft.lvdm.basics import (
     zero_module,
     conv_nd,
     linear,
     avg_pool_nd,
     normalization
 )
-from lvdm.modules.attention import SpatialTransformer, TemporalTransformer
+from dynamicraft.lvdm.modules.attention import SpatialTransformer, TemporalTransformer
 
 
 class TimestepBlock(nn.Module):

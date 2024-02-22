@@ -9,12 +9,12 @@ try:
     XFORMERS_IS_AVAILBLE = True
 except:
     XFORMERS_IS_AVAILBLE = False
-from lvdm.common import (
+from dynamicraft.lvdm.common import (
     checkpoint,
     exists,
     default,
 )
-from lvdm.basics import zero_module
+from dynamicraft.lvdm.basics import zero_module
 
 
 class RelativePosition(nn.Module):

@@ -7,7 +7,7 @@ import cv2
 import torch
 import torchvision
 sys.path.insert(1, os.path.join(sys.path[0], '..', '..'))
-from lvdm.models.samplers.ddim import DDIMSampler
+from dynamicraft.lvdm.models.samplers.ddim import DDIMSampler
 from einops import rearrange
 
 
@@ -203,7 +203,7 @@ def load_image_batch(filepath_list, image_size=(256,256)):
     return torch.stack(batch_tensor, dim=0)
 
 
-def save_videos(batch_tensors, savedir, filenames, fps=10):
+def save_videos(batch_tensors, savedir, fps=10):
     # b,samples,c,t,h,w
     n_samples = batch_tensors.shape[1]
     for idx, vid_tensor in enumerate(batch_tensors):
@@ -214,8 +214,22 @@ def save_videos(batch_tensors, savedir, filenames, fps=10):
         grid = torch.stack(frame_grids, dim=0) # stack in temporal dim [t, 3, n*h, w]
         grid = (grid + 1.0) / 2.0
         grid = (grid * 255).to(torch.uint8).permute(0, 2, 3, 1)
-        savepath = os.path.join(savedir, f"{filenames[idx]}.mp4")
-        torchvision.io.write_video(savepath, grid, fps=fps, video_codec='h264', options={'crf': '10'})
+
+        torchvision.io.write_video(savedir, grid, fps=fps, video_codec='h264', options={'crf': '10'})
+
+# def save_videos(batch_tensors, savedir, fps=10):
+#     # b,samples,c,t,h,w
+#     n_samples = batch_tensors.shape[1]
+#     for idx, vid_tensor in enumerate(batch_tensors):
+#         video = vid_tensor.detach().cpu()
+#         video = torch.clamp(video.float(), -1., 1.)
+#         video = video.permute(2, 0, 1, 3, 4) # t,n,c,h,w
+#         frame_grids = [torchvision.utils.make_grid(framesheet, nrow=int(n_samples)) for framesheet in video] #[3, 1*h, n*w]
+#         grid = torch.stack(frame_grids, dim=0) # stack in temporal dim [t, 3, n*h, w]
+#         grid = (grid + 1.0) / 2.0
+#         grid = (grid * 255).to(torch.uint8).permute(0, 2, 3, 1)
+     
+#         torchvision.io.write_video(savedir, grid, fps=fps, video_codec='h264', options={'crf': '10'})
 
 
 def get_latent_z(model, videos):

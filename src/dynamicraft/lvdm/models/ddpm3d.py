@@ -17,12 +17,12 @@ import torch
 import torch.nn as nn
 from torchvision.utils import make_grid
 import pytorch_lightning as pl
-from utils.utils import instantiate_from_config
-from lvdm.ema import LitEma
-from lvdm.distributions import DiagonalGaussianDistribution
-from lvdm.models.utils_diffusion import make_beta_schedule, rescale_zero_terminal_snr
-from lvdm.basics import disabled_train
-from lvdm.common import (
+from dynamicraft.utils.utils import instantiate_from_config
+from dynamicraft.lvdm.ema import LitEma
+from dynamicraft.lvdm.distributions import DiagonalGaussianDistribution
+from dynamicraft.lvdm.models.utils_diffusion import make_beta_schedule, rescale_zero_terminal_snr
+from dynamicraft.lvdm.basics import disabled_train
+from dynamicraft.lvdm.common import (
     extract_into_tensor,
     noise_like,
     exists,
